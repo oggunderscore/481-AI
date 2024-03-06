@@ -52,8 +52,22 @@ initial_state = {"F", "G", "W", "C"}
 # goal_state = {"G", "W", "C", "F"}
 wgc = WolfGoatCabbage()
 print(wgc.actions(initial_state))
-print(wgc.result(initial_state, {"F", "G"}))
-print(wgc.result(wgc.result(initial_state, {"F", "G"}), {"F"}))
+state_1 = wgc.result(initial_state, {"F", "G"})
+print(state_1)
+#print(wgc.result(wgc.result(initial_state, {"F", "G"}), {"F"}))
+state_2 = wgc.result(state_1, {"F"})
+print(state_2)
+
+state_3 = wgc.result(state_2, {"F", "C"})
+print(state_3)
+state_4 = wgc.result(state_3, {"F", "G"} )
+print(state_4)
+state_5 = wgc.result(state_4, {"F", "W"})
+print(state_5)
+state_6 = wgc.result(state_5, "F")
+print(state_6)
+state_7 = wgc.result(state_6, {"F", "G"})
+print(state_7)
 print(wgc.goal_test({}))
 
 # This needs to be fixed somehow...
