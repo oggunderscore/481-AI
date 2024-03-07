@@ -118,12 +118,17 @@ wgc = WolfGoatCabbage()
 # print(wgc.goal_test({}))
 
 if __name__ == "__main__":
+    
     wgc = WolfGoatCabbage()
+
     # solution() is a function in class node that returns the sequence of actions
+    #its already frozen list 
     solution = depth_first_graph_search(wgc).solution()
-    print(solution)
-    # solution = breadth_first_graph_search(wgc).solution()
-    # print(solution)
+    opt_sol = [list(state) for state in solution] # converting each node to normal list
+    print(opt_sol)
+    solution = breadth_first_graph_search(wgc).solution()
+    opt_sol1 = [list(state) for state in solution]
+    print(opt_sol1)
 
 # This needs to be fixed somehow...
 # print(depth_first_graph_search(wgc).solution())
