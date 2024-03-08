@@ -7,7 +7,10 @@ from search import *
 
 class WolfGoatCabbage(Problem):
     def __init__(self, initial=None, goal=None):
-        """Define initial and goal states"""
+        """Initialize the problem with optional initial and goal states.
+        The default initial state has the farmer (F), goat (G), wolf (W), and cabbage (C) on one side.
+        The goal state is to have all moved to the opposite side, represented as an empty set.
+        """
         if initial is None:
             initial = frozenset({"F", "G", "W", "C"})
         if goal is None:
@@ -15,25 +18,27 @@ class WolfGoatCabbage(Problem):
         super().__init__(initial, goal)
 
     def goal_test(self, state):
-        """Check if the current state is the goal state"""
+        """Check if the current state matches the goal state."""
         return state == self.goal
 
     def result(self, state, action):
-        """Given a state and an action, return the new state"""
+        """Given a state and an action, compute and return the new state after applying the action.
+        The action effectively moves the farmer and optionally one other item across the river.
+        """
         new_state = set(state) ^ set(action)
         return frozenset(new_state)
 
     def actions(self, state):
-        """Return possible actions in a given state"""
+        """Determine possible actions given the current state.
+        An action is defined as the farmer moving across the river, optionally with one item.
+        """
         available_actions = []
         farmer_location = "F"
         other_objects = set({"G", "W", "C"})
 
-        list = []
-        for item in state:
-            if not item == "F":
-                list.append(item)
-        newState = frozenset(list)
+        # Remove the farmer to identify which objects are on the same side
+        objects_on_same_side = [item for item in state if item != "F"]
+        newState = frozenset(objects_on_same_side)
 
         if "F" in state:
             # Farmer is on the left bank, options to move objects from left to right
