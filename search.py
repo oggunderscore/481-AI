@@ -229,17 +229,13 @@ def depth_first_graph_search(problem):
     If two paths reach a state, only use the first one.
     """
     frontier = [(Node(problem.initial))]  # Stack
-    # print(f"Frontier: {frontier}")
 
     explored = set()
     while frontier:
         node = frontier.pop()
-        # print(f"Node: {node}")
         if problem.goal_test(node.state):
-            # print(f"Goal has been found, returning: {node}")
             return node
         explored.add(node.state)
-        # print(f"Adding to explored: {node.state}")
         frontier.extend(
             child
             for child in node.expand(problem)
