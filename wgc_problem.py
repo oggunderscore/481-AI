@@ -54,32 +54,41 @@ class WolfGoatCabbage(Problem):
                 available_actions.append(frozenset({farmer_location}))
 
         # Filter out actions where the goat and the wolf or the goat and the cabbage are left alone
+        valid_actions = []
         for action in available_actions:
-            if frozenset({"F"}) == action:
-                if "F" in state:
-                    available_actions.remove(action)
-                elif frozenset({"W"}) == state:
-                    available_actions.remove(action)
-                elif frozenset({"C"}) == state:
-                    available_actions.remove(action)
-            if "F" in action and "C" in action:
-                if "W" in state and "G" in state:
-                    available_actions.remove(action)
-            if "F" in action and "W" in action:
-                if frozenset({"W", "C"}) == state or frozenset({"C", "W"}) == state:
-                    available_actions.remove(action)
-        return available_actions
+            # If the action is just moving the farmer and not allowed by the state, skip it
+            if action == frozenset({"F"}) and (
+                state in [frozenset({"W"}), frozenset({"C"})]
+            ):
+                continue
+            # Skip moving the cabbage with the farmer if both wolf and goat are present
+            elif "F" in action and "C" in action and "W" in state and "G" in state:
+                continue
+            # Skip moving the wolf with the farmer if both wolf and cabbage are together without the goat
+            elif (
+                "F" in action
+                and "W" in action
+                and state in [frozenset({"W", "C"}), frozenset({"C", "W"})]
+            ):
+                continue
+            else:
+                valid_actions.append(action)
+        return valid_actions
 
 
 if __name__ == "__main__":
 
     wgc = WolfGoatCabbage()
 
-    # solution() is a function in class node that returns the sequence of actions
-    # its already frozen list
-    solution = depth_first_graph_search(wgc).solution()
-    opt_sol = [set(state) for state in solution]  # converting each node to normal set
-    print(opt_sol)
-    solution = breadth_first_graph_search(wgc).solution()
-    opt_sol1 = [set(state) for state in solution]
-    print(opt_sol1)
+    # Use depth-first and breadth-first search strategies to find a solution
+    solution_dfs = depth_first_graph_search(wgc).solution()  # Find solution using DFS
+    opt_sol_dfs = [
+        set(state) for state in solution_dfs
+    ]  # Convert each action set to a normal set for readability
+    print("DFS Solution:", opt_sol_dfs)
+
+    solution_bfs = breadth_first_graph_search(wgc).solution()  # Find solution using BFS
+    opt_sol_bfs = [
+        set(state) for state in solution_bfs
+    ]  # Convert each action set to a normal set for readability
+    print("BFS Solution:", opt_sol_bfs)
