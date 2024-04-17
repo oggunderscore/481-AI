@@ -36,15 +36,15 @@ class GameOfNim(Game):
     def compute_utility(self, board):
         """Utility is 1 if game over on this board and the last player to move played a winning move (last move)."""
         if sum(board) == 0:  # Game over
-            return 1  # Last move was winning move
+            return 1  # Last move was winning move # LMAO SHOULD BE LOSING?
         return 0
 
     def utility(self, state, player):
         """Return the value to player; 1 for win, -1 for loss, 0 otherwise."""
         if player == 'MAX':
-            return state.utility
-        else:
             return -state.utility
+        else:
+            return state.utility
 
     def terminal_test(self, state):
         """A state is terminal if there are no objects left"""
@@ -54,14 +54,14 @@ class GameOfNim(Game):
         print("board:", state.board)
 
 if __name__ == "__main__":
-    nim = GameOfNim(board=[0, 5, 3, 1])  # Creating the game instance
+    nim = GameOfNim(board=[7,5,3,1])  # Creating the game instance
     print("Initial board:", nim.initial.board)  # Output: [0, 5, 3, 1]
     print("Initial moves:", nim.initial.moves)  # Output will show all possible moves from this state
 
     # Example of playing the game against another agent (simulation)
     utility = nim.play_game(alpha_beta_player, query_player)  # Computer moves first using alpha_beta_player
     if utility < 0:
-        print("MIN won the game")
+        print("alpha_beta_player won the game")
     else:
-        print("MAX won the game")
+        print("User has won the game")
 
