@@ -23,6 +23,10 @@ class GameOfNim(Game):
     def actions(self, state):
         """Legal moves are at least one object, all from the same row."""
         return state.moves
+    
+    def to_move(self, state):
+        """Return the player whose move it is in this state."""
+        return state.to_move
 
     def result(self, state, move):
         """Implement the result of a move."""
@@ -30,13 +34,13 @@ class GameOfNim(Game):
         new_board[move[0]] -= move[1]
         new_moves = self.get_moves(new_board)
         new_to_move = 'MIN' if state.to_move == 'MAX' else 'MAX'
-        new_state = GameState(to_move=new_to_move, utility=self.compute_utility(new_board), board=new_board, moves=new_moves)
+        new_state = GameState(to_move=new_to_move, utility=self.compute_utility(new_board, state), board=new_board, moves=new_moves)
         return new_state
 
-    def compute_utility(self, board):
-        """Utility is 1 if game over on this board and the last player to move played a winning move (last move)."""
-        if sum(board) == 0:  # Game over
-            return 1  # Last move was winning move # LMAO SHOULD BE LOSING?
+    def compute_utility(self, board, state):
+        """Compute utility, 1 for a win, -1 for a loss, 0 otherwise."""
+        if sum(board) == 0:  # Check if the board is empty
+            return -1 if state.to_move == 'MAX' else 1  # Last to move made a losing move
         return 0
 
     def utility(self, state, player):
