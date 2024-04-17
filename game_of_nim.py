@@ -60,7 +60,7 @@ class GameOfNim(Game):
 if __name__ == "__main__":
     nim = GameOfNim(board=[7,5,3,1])  # Creating the game instance
     print("Initial board:", nim.initial.board)  # Output: [0, 5, 3, 1]
-    print("Initial moves:", nim.initial.moves)  # Output will show all possible moves from this state
+    # print("Initial moves:", nim.initial.moves)  # Output will show all possible moves from this state
 
     # Example of playing the game against another agent (simulation)
     utility = nim.play_game(alpha_beta_player, query_player)  # Computer moves first using alpha_beta_player

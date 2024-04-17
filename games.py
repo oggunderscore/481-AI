@@ -91,6 +91,7 @@ def alpha_beta_search(state, game):
     As in [Figure 5.7], this version searches all the way to the leaves."""
 
     player = game.to_move(state)
+    print("available moves: {}".format(game.actions(state)))
 
     # Functions used by alpha_beta
     def max_value(state, alpha, beta):
