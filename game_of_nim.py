@@ -46,9 +46,9 @@ class GameOfNim(Game):
     def utility(self, state, player):
         """Return the value to player; 1 for win, -1 for loss, 0 otherwise."""
         if player == 'MAX':
-            return -state.utility
-        else:
             return state.utility
+        else:
+            return -state.utility
 
     def terminal_test(self, state):
         """A state is terminal if there are no objects left"""
@@ -65,7 +65,7 @@ if __name__ == "__main__":
     # Example of playing the game against another agent (simulation)
     utility = nim.play_game(alpha_beta_player, query_player)  # Computer moves first using alpha_beta_player
     if utility < 0:
-        print("alpha_beta_player won the game")
-    else:
         print("User has won the game")
+    else:
+        print("alpha_beta_player has won the game")
 
