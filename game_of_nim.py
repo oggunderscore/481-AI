@@ -1,6 +1,6 @@
 from games import *
 
-class GameOfNim(Game):
+class GameOfNim(Game): # inherited from Game 
     """Play Game of Nim with first player 'MAX'.
     A state has the player to move, a cached utility, a list of moves in
     the form of a list of (x, y) positions, and a board, in the form of

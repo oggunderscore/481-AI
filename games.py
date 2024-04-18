@@ -178,7 +178,7 @@ def alpha_beta_cutoff_search(state, game, d=4, cutoff_test=None, eval_fn=None):
 
 def query_player(game, state):
     """Make a move by querying standard input."""
-    print("current state:")
+    print(f"current state:{state.board}")
     game.display(state)
     print("available moves: {}".format(game.actions(state)))
     print("")
@@ -257,7 +257,7 @@ class Game:
         while True:
             for player in players:
                 move = player(self, state)
-                print(f"{player} Move: {move}")
+                print(f"{player.__name__} Move: {move}")
                 state = self.result(state, move)
                 if self.terminal_test(state):
                     self.display(state)
